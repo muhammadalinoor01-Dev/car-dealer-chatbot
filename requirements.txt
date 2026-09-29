@@ -1,0 +1,10 @@
+# Runtime dependencies (pinned). For dev/test tooling install the package with
+# the [dev] extra:  pip install -e ".[dev,web]"
+openai==1.51.0
+# openai 1.51 passes `proxies=` to httpx, which httpx>=0.28 removed; pin below.
+httpx==0.27.2
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+python-dateutil==2.9.0.post0
+streamlit==1.39.0

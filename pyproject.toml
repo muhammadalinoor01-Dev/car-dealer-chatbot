@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "car-dealer-chatbot"
+version = "0.1.0"
+description = "LLM-powered chatbot that helps a user find a car and connect with its dealer."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Hashir", email = "hashir@optimageeks.com" }]
+keywords = ["chatbot", "llm", "openrouter", "cars", "cli", "streamlit"]
+
+dependencies = [
+    "openai==1.51.0",
+    # openai 1.51 passes `proxies=` to httpx, which httpx>=0.28 removed; pin below.
+    "httpx==0.27.2",
+    "pydantic==2.9.2",
+    "pydantic-settings==2.5.2",
+    "python-dotenv==1.0.1",
+    "python-dateutil==2.9.0.post0",
+]
+
+[project.optional-dependencies]
+web = [
+    "streamlit==1.39.0",
+]
+dev = [
+    "pytest==8.3.3",
+    "pytest-cov==5.0.0",
+    "black==24.10.0",
+    "ruff==0.6.9",
+    "mypy==1.11.2",
+    "types-python-dateutil==2.9.0.20241003",
+]
+
+[project.scripts]
+car-dealer-chatbot = "car_dealer_chatbot.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/car_dealer_chatbot"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/car_dealer_chatbot/data" = "car_dealer_chatbot/data"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "D"]
+ignore = ["D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "E501"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+addopts = "-q --cov=car_dealer_chatbot --cov-report=term-missing"
+testpaths = ["tests"]
+pythonpath = ["src"]
