@@ -1,0 +1,26 @@
+car_id,make,model,variant,year,body_type,fuel_type,transmission,price_eur,color,mileage_km,dealer_id
+C001,Toyota,Corolla,1.8 Hybrid Dynamic,2023,Hatchback,Hybrid,Automatic,28950,Silver,18500,D001
+C002,Toyota,Corolla,2.0 Hybrid GR Sport,2024,Hatchback,Hybrid,Automatic,33500,Red,7200,D003
+C003,Toyota,Yaris,1.5 Hybrid Executive,2023,Hatchback,Hybrid,Automatic,24990,White,21000,D001
+C004,Toyota,RAV4,2.5 Hybrid AWD Style,2022,SUV,Hybrid,Automatic,41250,Grey,38900,D005
+C005,Volkswagen,Golf,1.5 TSI Life,2023,Hatchback,Petrol,Manual,27400,Blue,15600,D002
+C006,Volkswagen,Golf,2.0 TDI Style,2022,Hatchback,Diesel,Automatic,29900,Black,42000,D004
+C007,Volkswagen,ID.3,Pro Performance 58kWh,2023,Hatchback,Electric,Automatic,35900,White,12300,D002
+C008,Volkswagen,Tiguan,1.5 eTSI R-Line,2024,SUV,Petrol,Automatic,44800,Grey,5400,D005
+C009,Tesla,Model 3,Long Range AWD,2023,Sedan,Electric,Automatic,46990,White,19800,D003
+C010,Tesla,Model Y,Standard Range,2022,SUV,Electric,Automatic,48500,Black,27600,D003
+C011,BMW,3 Series,320i M Sport,2022,Sedan,Petrol,Automatic,42900,Blue,33400,D005
+C012,BMW,X1,sDrive18i Executive,2023,SUV,Petrol,Automatic,45900,Grey,16700,D002
+C013,BMW,i4,eDrive40 M Sport,2024,Sedan,Electric,Automatic,58900,Black,4300,D005
+C014,Audi,A3,35 TFSI Advanced,2023,Hatchback,Petrol,Automatic,34900,Silver,14200,D004
+C015,Audi,Q4 e-tron,40 Edition One,2023,SUV,Electric,Automatic,52900,Blue,11100,D006
+C016,Mercedes-Benz,A-Class,A180 AMG Line,2022,Hatchback,Petrol,Automatic,36900,White,28800,D006
+C017,Mercedes-Benz,GLC,300 e 4MATIC,2024,SUV,Hybrid,Automatic,61900,Black,6200,D005
+C018,Kia,Niro,1.6 GDi Hybrid DynamicLine,2023,SUV,Hybrid,Automatic,32900,Grey,17400,D004
+C019,Kia,EV6,GT-Line 77kWh,2023,SUV,Electric,Automatic,49900,White,13900,D006
+C020,Hyundai,Kona,1.0 T-GDi Comfort,2022,SUV,Petrol,Manual,25900,Red,31200,D004
+C021,Hyundai,Ioniq 5,73kWh Connect,2023,SUV,Electric,Automatic,47900,Silver,15800,D006
+C022,Renault,Clio,1.0 TCe Techno,2023,Hatchback,Petrol,Manual,21900,Blue,19600,D001
+C023,Renault,Megane E-Tech,EV60 Techno,2023,Hatchback,Electric,Automatic,38900,Grey,10400,D002
+C024,Peugeot,208,1.2 PureTech Allure,2023,Hatchback,Petrol,Manual,22900,White,16200,D001
+C025,Skoda,Octavia,1.5 TSI Style,2022,Estate,Petrol,Automatic,29900,Silver,36700,D004

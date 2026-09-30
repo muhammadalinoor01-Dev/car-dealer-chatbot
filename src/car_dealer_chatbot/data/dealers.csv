@@ -1,0 +1,7 @@
+dealer_id,name,phone,email,address,city,country,rating
+D001,Utrecht Auto Centre,+31 30 123 4567,sales@utrechtauto.nl,Europalaan 12,Utrecht,Netherlands,4.6
+D002,Amsterdam Motors,+31 20 555 0198,contact@amsterdammotors.nl,Overtoom 210,Amsterdam,Netherlands,4.3
+D003,Rotterdam Car Hub,+31 10 214 8890,info@rotterdamcarhub.nl,Coolsingel 45,Rotterdam,Netherlands,4.7
+D004,Eindhoven Drive,+31 40 298 3321,hello@eindhovendrive.nl,Stratumseind 88,Eindhoven,Netherlands,4.1
+D005,Den Haag Premium Cars,+31 70 345 6677,sales@denhaagpremium.nl,Lange Voorhout 3,The Hague,Netherlands,4.8
+D006,Groningen Auto Plaza,+31 50 411 7788,team@groningenautoplaza.nl,Grote Markt 21,Groningen,Netherlands,4.2
