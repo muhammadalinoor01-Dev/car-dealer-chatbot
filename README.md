@@ -8,13 +8,14 @@ while all data access stays deterministic and testable.
 Two frontends share the exact same conversation engine:
 
 - **CLI** - `car-dealer-chatbot`
-- **Web** - a Streamlit app (`streamlit run app/streamlit_app.py`)
+- **Web** - a Streamlit app (`make web`)
 
 ---
 
 ## Contents
 
 - [Architecture](#architecture)
+- [Project structure](#project-structure)
 - [Setup and installation](#setup-and-installation)
 - [Configuring API keys](#configuring-api-keys)
 - [Running the chatbot](#running-the-chatbot)
@@ -34,27 +35,27 @@ CSV files directly.
 
 ```
                 +-------------------+      +--------------------------+
-   frontends    |   cli.py (REPL)   |      | app/streamlit_app.py (web)|
+   frontends    | interfaces/cli.py |      | interfaces/web/streamlit  |
                 +---------+---------+      +-------------+------------+
                           \                              /
                            v                            v
                         +--------------------------------+
-      conversation      |         agent.py               |  tool-calling loop
+      conversation      |     agent/chat_agent.py        |  tool-calling loop
                         |        (ChatAgent)             |  (UI-agnostic)
                         +----------------+---------------+
                                          |
                         +----------------v---------------+
-      LLM interface     |          tools.py              |  tool schemas + dispatch
+      LLM interface     |       agent/tools.py           |  tool schemas + dispatch
                         |     (Tool, Toolbox)            |  registry (no if/elif)
                         +----------------+---------------+
                                          |
                         +----------------v---------------+
-      domain logic      |        services.py             |  search / join / schedule
+      domain logic      |    services/inventory.py       |  search / join / schedule
                         |      (InventoryService)        |
                         +----------------+---------------+
                                          |
                         +----------------v---------------+
-      data access       |       repository.py            |  generic CsvRepository[T]
+      data access       | repositories/csv_repository.py |  generic CsvRepository[T]
                         | (CarRepository, DealerRepo)    |
                         +----------------+---------------+
                                          |
@@ -72,9 +73,47 @@ Key points:
   `Tool` (name, JSON-schema, handler) and routed through a registry. Adding a
   tool means adding one `Tool` object; there are no `if name == ...` chains.
 - **Deterministic core.** Search, dealer matching and scheduling are pure Python
-  in `services.py`, so the "core logic" is unit-tested with no network or API
+  in `services/`, so the "core logic" is unit-tested with no network or API
   key. Handlers never raise across the LLM boundary - expected problems come back
   as `{"error": ...}` so the model can recover.
+
+---
+
+## Project structure
+
+```
+car-dealer-chatbot/
+├── src/car_dealer_chatbot/
+│   ├── __main__.py              # python -m car_dealer_chatbot
+│   ├── core/                    # cross-cutting: settings, logging, errors
+│   │   ├── config.py
+│   │   ├── logging.py
+│   │   └── exceptions.py
+│   ├── domain/                  # entities (Car, Dealer, ScheduledCall)
+│   │   └── models.py
+│   ├── repositories/            # data access (generic CsvRepository[T])
+│   │   └── csv_repository.py
+│   ├── services/                # business logic: search, join, scheduling
+│   │   └── inventory.py
+│   ├── agent/                   # LLM layer: prompt, tool registry, loop
+│   │   ├── chat_agent.py
+│   │   ├── prompts.py
+│   │   └── tools.py
+│   ├── interfaces/              # thin frontends over ChatAgent
+│   │   ├── cli.py
+│   │   └── web/streamlit_app.py
+│   └── data/                    # bundled CSVs (shipped in the wheel)
+├── tests/
+│   ├── conftest.py              # shared offline fixtures
+│   └── unit/                    # mirrors the package layout
+│       ├── domain/ repositories/ services/ agent/
+├── scripts/                     # run_cli.sh, run_web.sh
+├── Makefile                     # install / run / web / test / lint / check
+└── pyproject.toml
+```
+
+Dependencies point inward only: `interfaces → agent → services → repositories → domain`,
+with `core` available to every layer.
 
 ---
 
@@ -122,6 +161,7 @@ With the virtual environment activated, from the project root:
 ```bash
 # Editable install with the web + dev extras
 pip install -e ".[web,dev]"
+# or:  make install
 ```
 
 `pip install -e .` installs only the runtime dependencies. The extras are:
@@ -170,13 +210,15 @@ Browse models at <https://openrouter.ai/models>.
 
 ```bash
 car-dealer-chatbot
-# or:  python -m car_dealer_chatbot.cli
+# or:  python -m car_dealer_chatbot
+# or:  make run   /   ./scripts/run_cli.sh
 ```
 
 **Web** (Streamlit - the bonus interface):
 
 ```bash
-streamlit run app/streamlit_app.py
+streamlit run src/car_dealer_chatbot/interfaces/web/streamlit_app.py
+# or:  make web   /   ./scripts/run_web.sh
 ```
 
 Example CLI session:
@@ -190,7 +232,7 @@ You: Schedule a call please.
 Bot: Sure - what date and time suit you?
 You: Friday at 3pm.
 Bot: Call scheduled with Utrecht Auto Centre (+31 30 123 4567)
-     on Friday 03 Oct 2025 at 15:00. The dealer will call you then.
+     on Friday 09 Oct 2026 at 15:00. The dealer will call you then.
 ```
 
 ---
@@ -202,7 +244,11 @@ OpenAI client and the data layer reads temporary CSV fixtures.
 
 ```bash
 pytest                 # runs tests with coverage (configured in pyproject.toml)
+# or:  make test
 ```
+
+Tests live under `tests/unit/`, mirroring the package layout
+(`domain/`, `repositories/`, `services/`, `agent/`).
 
 Lint, format and type checks:
 
@@ -210,7 +256,10 @@ Lint, format and type checks:
 ruff check .
 black --check .
 mypy src
+# or:  make lint / make typecheck / make format
 ```
+
+`make check` runs lint, type checks and tests in one go.
 
 ---
 
@@ -306,7 +355,7 @@ user gracefully rather than crashing.
 - **Scheduling is a mock**, as specified - it returns a confirmation object; no
   calendar/booking backend is contacted.
 - **In-memory repositories.** The dataset is tiny, so CSVs are loaded once and
-  indexed by primary key. If the data grew, only `repository.py` would change.
+  indexed by primary key. If the data grew, only `repositories/` would change.
 - **Config is centralised and typed** (`pydantic-settings`), so every layer reads
   one validated settings object and secrets never appear in code.
 
@@ -315,9 +364,12 @@ user gracefully rather than crashing.
 ## Code quality
 
 - **`src/` layout, installable package** with `pyproject.toml`; pinned deps.
+- **Layered packages** (`core`, `domain`, `repositories`, `services`, `agent`,
+  `interfaces`) with dependencies pointing inward only.
+- **Makefile + `scripts/`** for one-command install, run, lint and test.
 - **Type hints throughout**, checked with **mypy** (strict).
 - **Docstrings** on every module, class and public function (Google style).
 - **Formatting/linting** with **Black** and **Ruff**.
-- **Unit tests** for the core logic (repository, services, tools) plus the agent
+- **Unit tests** for the core logic (repositories, services, tools) plus the agent
   loop with a fake client, run with coverage.
 - **Logging** via a centralised config; **typed exception hierarchy** for errors.
