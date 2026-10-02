@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from car_dealer_chatbot.exceptions import DealerNotFoundError
+from car_dealer_chatbot.core.exceptions import DealerNotFoundError
 from car_dealer_chatbot.services import InventoryService
 
 

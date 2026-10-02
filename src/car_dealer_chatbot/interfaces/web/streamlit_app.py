@@ -2,7 +2,7 @@
 
 Run with::
 
-    streamlit run app/streamlit_app.py
+    streamlit run src/car_dealer_chatbot/interfaces/web/streamlit_app.py
 
 Like the CLI, this is a thin frontend over
 :class:`car_dealer_chatbot.agent.ChatAgent`; no conversation logic is duplicated.
@@ -18,9 +18,9 @@ import streamlit as st
 from pydantic import ValidationError
 
 from car_dealer_chatbot.agent import ChatAgent
-from car_dealer_chatbot.config import get_settings
-from car_dealer_chatbot.exceptions import DataError, LLMError
-from car_dealer_chatbot.logging_config import configure_logging
+from car_dealer_chatbot.core.config import get_settings
+from car_dealer_chatbot.core.exceptions import DataError, LLMError
+from car_dealer_chatbot.core.logging import configure_logging
 
 st.set_page_config(
     page_title="Car Dealer Assistant",

@@ -11,10 +11,10 @@ import sys
 
 from pydantic import ValidationError
 
-from .agent import ChatAgent
-from .config import get_settings
-from .exceptions import ChatbotError, DataError, LLMError
-from .logging_config import configure_logging, get_logger
+from car_dealer_chatbot.agent import ChatAgent
+from car_dealer_chatbot.core.config import get_settings
+from car_dealer_chatbot.core.exceptions import ChatbotError, DataError, LLMError
+from car_dealer_chatbot.core.logging import configure_logging, get_logger
 
 logger = get_logger(__name__)
 

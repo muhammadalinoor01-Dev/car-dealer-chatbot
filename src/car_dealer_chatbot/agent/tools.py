@@ -19,10 +19,10 @@ from typing import Any
 
 from dateutil import parser as date_parser
 
-from .exceptions import ChatbotError
-from .logging_config import get_logger
-from .models import Car
-from .services import InventoryService
+from car_dealer_chatbot.core.exceptions import ChatbotError
+from car_dealer_chatbot.core.logging import get_logger
+from car_dealer_chatbot.domain.models import Car
+from car_dealer_chatbot.services import InventoryService
 
 logger = get_logger(__name__)
 

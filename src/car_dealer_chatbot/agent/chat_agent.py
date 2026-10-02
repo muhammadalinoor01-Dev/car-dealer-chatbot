@@ -13,13 +13,13 @@ from typing import TYPE_CHECKING, Any
 
 from openai import OpenAI, OpenAIError
 
-from .config import Settings, get_settings
-from .exceptions import LLMError
-from .logging_config import get_logger
-from .prompts import build_system_prompt
-from .repository import CarRepository, DealerRepository
-from .services import InventoryService
-from .tools import Toolbox
+from car_dealer_chatbot.agent.prompts import build_system_prompt
+from car_dealer_chatbot.agent.tools import Toolbox
+from car_dealer_chatbot.core.config import Settings, get_settings
+from car_dealer_chatbot.core.exceptions import LLMError
+from car_dealer_chatbot.core.logging import get_logger
+from car_dealer_chatbot.repositories import CarRepository, DealerRepository
+from car_dealer_chatbot.services import InventoryService
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

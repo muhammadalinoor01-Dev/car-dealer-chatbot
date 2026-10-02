@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 
 import pytest
 
+from car_dealer_chatbot.agent.tools import TOOLS, Toolbox
 from car_dealer_chatbot.services import InventoryService
-from car_dealer_chatbot.tools import TOOLS, Toolbox
 
 
 @pytest.fixture()

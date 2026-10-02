@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from car_dealer_chatbot.exceptions import (
+from car_dealer_chatbot.core.exceptions import (
     DataFileNotFoundError,
     DataValidationError,
 )
-from car_dealer_chatbot.repository import CarRepository, DealerRepository
+from car_dealer_chatbot.repositories import CarRepository, DealerRepository
 
 
 def test_loads_and_indexes_rows(car_repo: CarRepository) -> None:

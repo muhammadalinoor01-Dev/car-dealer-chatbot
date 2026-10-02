@@ -15,9 +15,12 @@ from typing import Generic, TypeVar
 
 from pydantic import BaseModel, ValidationError
 
-from .exceptions import DataFileNotFoundError, DataValidationError
-from .logging_config import get_logger
-from .models import Car, Dealer
+from car_dealer_chatbot.core.exceptions import (
+    DataFileNotFoundError,
+    DataValidationError,
+)
+from car_dealer_chatbot.core.logging import get_logger
+from car_dealer_chatbot.domain.models import Car, Dealer
 
 logger = get_logger(__name__)
 

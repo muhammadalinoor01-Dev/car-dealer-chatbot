@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from car_dealer_chatbot.models import Car, Dealer, ScheduledCall
+from car_dealer_chatbot.domain.models import Car, Dealer, ScheduledCall
 
 
 def _make_car(**overrides: object) -> Car:

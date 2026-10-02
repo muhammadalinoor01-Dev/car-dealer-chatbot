@@ -14,7 +14,7 @@ from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Directory that ships the bundled sample CSV data.
-_DATA_DIR = Path(__file__).resolve().parent / "data"
+_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 
 class Settings(BaseSettings):

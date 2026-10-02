@@ -8,9 +8,9 @@ import pytest
 from openai import OpenAIError
 
 from car_dealer_chatbot.agent import ChatAgent
-from car_dealer_chatbot.exceptions import LLMError
+from car_dealer_chatbot.agent.tools import Toolbox
+from car_dealer_chatbot.core.exceptions import LLMError
 from car_dealer_chatbot.services import InventoryService
-from car_dealer_chatbot.tools import Toolbox
 
 
 class _FakeMessage:

@@ -11,10 +11,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from difflib import SequenceMatcher
 
-from .exceptions import DealerNotFoundError
-from .logging_config import get_logger
-from .models import Car, Dealer, ScheduledCall
-from .repository import CarRepository, DealerRepository
+from car_dealer_chatbot.core.exceptions import DealerNotFoundError
+from car_dealer_chatbot.core.logging import get_logger
+from car_dealer_chatbot.domain.models import Car, Dealer, ScheduledCall
+from car_dealer_chatbot.repositories import CarRepository, DealerRepository
 
 logger = get_logger(__name__)
 

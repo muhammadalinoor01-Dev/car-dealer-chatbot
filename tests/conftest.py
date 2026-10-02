@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from car_dealer_chatbot.repository import CarRepository, DealerRepository
+from car_dealer_chatbot.repositories import CarRepository, DealerRepository
 from car_dealer_chatbot.services import InventoryService
 
 _DEALERS_CSV = """\
